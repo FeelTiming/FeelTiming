@@ -2,8 +2,6 @@ from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ROOT_DIR = os.path.dirname(BASE_DIR)
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-^#tu6&an#-7x(nheo*a1gbknvpu6*!h-7zwnpgo+7qimkaf-19'
@@ -93,11 +91,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    STATIC_DIR
+    BASE_DIR / 'static',
 ]
-STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
+STATIC_ROOT = '/static/'
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
