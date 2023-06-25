@@ -46,3 +46,14 @@ body {
 	z-index: 2;
 	font-size: 12px;
 }
+
+.enroll {
+	position: absolute;
+	top: 700px;
+	left: 260px;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	z-index: 2;
+	font-size: 12px;
+}
