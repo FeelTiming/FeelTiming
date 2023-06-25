@@ -107,10 +107,9 @@ function placesSearchCB(data, status, pagination) {
 	if (status === kakao.maps.services.Status.OK) {
 		// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 		// LatLngBounds 객체에 좌표를 추가합니다
-		var bounds = new kakao.maps.LatLngBounds();
 		displayMarker(data[0]);
-	}
 }
+
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
 // 지도에 마커를 표시하는 함수입니다
