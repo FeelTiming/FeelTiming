@@ -4,7 +4,7 @@ from .models import *
 import pandas as pd
 
 def enroll():
-    seongbuk = pd.read_csv('main/static/main/data/Seongbuk-gu.csv', encoding='cp949')
+    seongbuk = pd.read_csv("static\main\data\Seongbuk-gu.csv", encoding='cp949')
 
     for i in range(len(seongbuk)):
         gu = seongbuk.iloc[i, 0]
