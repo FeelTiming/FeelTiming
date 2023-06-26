@@ -1,21 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 
 import pandas as pd
 
-def enroll():
-    seongbuk = pd.read_csv("static\main\data\Seongbuk-gu.csv", encoding='cp949')
+def enroll(dir):
+    data = pd.read_csv(f"static\main\data\{dir}.csv", encoding='cp949')
 
-    for i in range(len(seongbuk)):
-        gu = seongbuk.iloc[i, 0]
-        gubun = seongbuk.iloc[i, 1]
-        type = seongbuk.iloc[i, 2]
-        location = seongbuk.iloc[i, 3]
-        manage = seongbuk.iloc[i, 4]
+    for i in range(len(data)):
+        gu = data.iloc[i, 0]
+        gubun = data.iloc[i, 1]
+        type = data.iloc[i, 2]
+        location = data.iloc[i, 3]
+        manage = data.iloc[i, 4]
         smokingZone.objects.update_or_create(gu=gu, gubun=gubun, type=type, location=location, manage=manage)
 
 def main(request):
-    enroll()
     zone = smokingZone.objects.all()
+    if not zone:
+        print("등록된 데이터 없음.")
+        enroll("Seongbuk-gu")
+        redirect('/')
     context = {'zone' : zone}
     return render(request, 'main/main.html', context)
