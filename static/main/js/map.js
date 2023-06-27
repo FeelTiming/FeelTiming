@@ -60,7 +60,6 @@ function geoFindMe() {
 	}
 }
 
-// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
 function setCenter() {
 	if (!navigator.geolocation) {
 		alert("위치 정보 접근 불가");
@@ -82,38 +81,79 @@ function getLoadView() {
 	}
 }
 
-function makeMarker(place) {
-	var ps = new kakao.maps.services.Places();
-	ps.keywordSearch(place, placesSearchCB);
+// 인포윈도우
+var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+var coords = [];
+var description = [];
+async function findGeo(place) {
+	const apiKey = "96b121da45a7569503823a0f6fcfd41b";
+
+	for (var i = 0; i < place.length; i++) {
+		// 주소 정보 가져오는 api 쓰기
+		const keyword = place[i].location;
+		await fetch(`https://dapi.kakao.com/v2/local/search/keyword.json?query=${encodeURIComponent(keyword)}`, {
+			headers: {
+				Authorization: `KakaoAK ${apiKey}`,
+			},
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response.json(); // 응답 데이터를 JSON 형식으로 변환하여 반환
+				} else {
+					throw new Error("Error: " + response.status);
+				}
+			})
+			.then((data) => {
+				// 응답 데이터 처리
+				if (data.documents.length !== 0) {
+					var coord = new kakao.maps.LatLng(data.documents[0].y, data.documents[0].x);
+					coords.push(coord);
+					description.push(place[i].desc);
+				}
+			})
+			.catch((error) => {
+				// 에러 처리
+				console.error(error);
+			});
+	}
+	displayMarker(coords, description);
 }
 
-function placesSearchCB(data, status, pagination) {
-	if (status === kakao.maps.services.Status.OK) {
-		displayMarker(data[0]);
+// 지도에 마커를 표시하는 함수입니다
+async function displayMarker(coords, description) {
+	// 마커를 생성하고 지도에 표시합니다
+	for (var i = 0; i < coords.length; i++) {
+		var marker = await addMarker(coords[i]);
+		(function (marker, title) {
+			kakao.maps.event.addListener(marker, "click", function () {
+				displayInfowindow(marker, title);
+			});
+			kakao.maps.event.addListener(map, "click", function () {
+				infowindow.close();
+			});
+		})(marker, description[i]);
 	}
+}
 
-	var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+function addMarker(position) {
+	var imageSrc = "static/main/image/smoke.svg", // 마커이미지의 주소입니다
+		imageSize = new kakao.maps.Size(24, 24), // 마커이미지의 크기입니다
+		markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-	// 지도에 마커를 표시하는 함수입니다
-	function displayMarker(place) {
-		// 마커를 생성하고 지도에 표시합니다
-		var imageSrc = "static/main/image/smoke.svg", // 마커이미지의 주소입니다
-			imageSize = new kakao.maps.Size(24, 24); // 마커이미지의 크기입니다
+	var marker = new kakao.maps.Marker({
+		position: position, // 마커의 위치
+		image: markerImage,
+	});
 
-		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-		var marker = new kakao.maps.Marker({
-			map: map,
-			position: new kakao.maps.LatLng(place.y, place.x),
-			image: markerImage,
-		});
+	marker.setMap(map); // 지도 위에 마커를 표출합니다
 
-		// 마커에 클릭이벤트를 등록합니다
-		kakao.maps.event.addListener(marker, "click", function () {
-			// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-			infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + "</div>");
-			infowindow.open(map, marker);
-		});
-	}
+	return marker;
+}
+
+function displayInfowindow(marker, title) {
+	var content = '<div class="info-window">' + "<p>" + title + "</p>" + "</div>";
+	infowindow.setContent(content);
+	infowindow.open(map, marker);
 }
 
 geoFindMe();

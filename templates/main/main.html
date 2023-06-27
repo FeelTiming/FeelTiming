@@ -59,12 +59,28 @@
 							<img src="/static/main/image/enroll.png" width="100" />
 						</span>
 						<script>
-							{% for item in zone %} var string = '{{ item }}'; makeMarker(string); {% endfor %}
+							function closeOverlay() {
+								infowindow.close();
+							}
+						</script>
+						<script>
+							var arr = [];
+							{% for item in zone %}
+							var gu = '{{ item.gu }}';
+							var manage = '{{ item.manage }}';
+
+							var loc = gu + " " + manage;
+							var desc = '{{ item.location }}';
+
+							arr.push({'location' : loc, 'desc' : desc})
+							{% endfor %}
+							findGeo(arr);
 						</script>
 					</div>
 				</div>
 			</div>
 			<!-- 지도 그리기 끝 -->
+			<div class="bottom_bar">123</div>
 		</div>
 	</body>
 </html>
