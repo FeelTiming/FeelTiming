@@ -38,7 +38,7 @@
 					<h3 class="navbar-text position-absolute top-50 start-50 translate-middle" style="font-size: 36px">
 						흡연구역 지도
 					</h3>
-					<a class="navbar-brand" href="#" style="right: 10px">
+					<a class="navbar-brand" href="#" style="right: 5%">
 						<img src="/static/main/image/info.png" alt="info_icon" width="32" />
 					</a>
 				</div>
@@ -49,13 +49,13 @@
 				<div id="map">
 					<!-- 지도타입 컨트롤 div 입니다 -->
 					<div class="custom_typecontrol">
+						<span class="roadviewbtn" onclick="getLoadView()">
+							<img src="/static/main/image/road_view.svg" width="36" />
+						</span>
 						<span class="currentbtn" onclick="setCenter()">
 							<img src="/static/main/image/setCurrent.png" width="36" />
 						</span>
-						<span class="roadviewbtn" onclick="getLoadView()">
-							<img src="/static/main/image/load_view.svg" width="36" />
-						</span>
-						<span class="enroll">
+						<span id="enroll" class="enroll">
 							<img src="/static/main/image/enroll.png" width="100" />
 						</span>
 						<script>
@@ -80,7 +80,24 @@
 				</div>
 			</div>
 			<!-- 지도 그리기 끝 -->
-			<div class="bottom_bar">123</div>
+			<div id="bottomBar" class="bottom_bar">
+				<div class="bottons">
+					<div class="address_box">국민대학교 어쩌고 저쩌고</div>
+					<div class="findRoute">
+						<a id="link_route" href="#">
+							<img src="/static/main/image/findRoute.png" width="60" />
+						</a>
+					</div>
+					<div class="bottom_roadview">
+						<a id="link_roadView" href="#">
+							<img src="/static/main/image/roadView.png" width="120" />
+						</a>
+					</div>
+					<div class="report">
+						<img src="/static/main/image/report.png" width="120" />
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

@@ -108,7 +108,7 @@ async function findGeo(place) {
 				if (data.documents.length !== 0) {
 					var coord = new kakao.maps.LatLng(data.documents[0].y, data.documents[0].x);
 					coords.push(coord);
-					description.push(place[i].desc);
+					description.push({ desc: place[i].desc, id: data.documents[0].id });
 				}
 			})
 			.catch((error) => {
@@ -124,14 +124,24 @@ async function displayMarker(coords, description) {
 	// 마커를 생성하고 지도에 표시합니다
 	for (var i = 0; i < coords.length; i++) {
 		var marker = await addMarker(coords[i]);
-		(function (marker, title) {
-			kakao.maps.event.addListener(marker, "click", function () {
-				displayInfowindow(marker, title);
-			});
-			kakao.maps.event.addListener(map, "click", function () {
-				infowindow.close();
-			});
-		})(marker, description[i]);
+		(
+			await function (marker, title) {
+				kakao.maps.event.addListener(marker, "click", function () {
+					var linkRoute = document.getElementById("link_route");
+					var linkRoadView = document.getElementById("link_roadView");
+					linkRoute.href = "https://map.kakao.com/link/to/" + title.id;
+					linkRoadView.href = "https://map.kakao.com/link/roadview/" + title.id;
+					displayInfowindow(marker, title.desc);
+				});
+				kakao.maps.event.addListener(map, "click", function () {
+					var map_container = document.getElementById("map");
+					var bar = document.getElementById("bottomBar");
+					map_container.style.height = "100%";
+					bar.style.height = "0%";
+					infowindow.close();
+				});
+			}
+		)(marker, description[i]);
 	}
 }
 
@@ -153,6 +163,10 @@ function addMarker(position) {
 function displayInfowindow(marker, title) {
 	var content = '<div class="info-window">' + "<p>" + title + "</p>" + "</div>";
 	infowindow.setContent(content);
+	var map_container = document.getElementById("map");
+	var bar = document.getElementById("bottomBar");
+	map_container.style.height = "70%";
+	bar.style.height = "30%";
 	infowindow.open(map, marker);
 }
 
