@@ -39,3 +39,10 @@ class smoking_area(models.Model):
     management_status= models.CharField(max_length=100, null=True)
 
     management= models.CharField(max_length=100, null=True)
+    
+class PlacePost(models.Model) : 
+    # address = ?
+    PlaceName = models.CharField(max_length=50)
+    PlaceExplain = models.TextField()
+    PlacePhoto = models.ImageField(upload_to='request/')
+    #이미지 uploadto주소부분

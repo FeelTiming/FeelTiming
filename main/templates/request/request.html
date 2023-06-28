@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feel Timing Recommend</title>
+  </head>
+  <body>
+    <!--요청창 전체-->
+    <div class="main-request">
+      <!--요청 기본 안내부분-->
+      <div class="request-guide">
+        <span>
+          흡연구역으로 등록되어 있지 않은 곳 중,<br />
+          흡연하기 적절한 장소로 판단되는 곳을 등록해주세요.<br />
+        </span>
+
+        <span> 적절한 흡연 구역의 조건 <br /> </span>
+        <span>
+          <ol>
+            <li>사람들이 많이 지나다니지 않는 곳(간접흡연 예방)</li>
+            <li>주변에 재떨이, 쓰레기통 등 꽁초를 버릴만한 통이 있는 곳</li>
+          </ol>
+        </span>
+      </div>
+      <!--요청 기본 안내부분 끝-->
+      <!--등록 방법 안내-->
+      <div class="howtorequest">
+        <span>등록 방법</span>
+        <span>
+          <ol>
+            <li>지도에서 위치를 클릭하여 마커를 생성합니다.</li>
+            <br />
+            <li>
+              주소를 확인한 후, <해당위치로 흡연구역 등록> 버튼을 클릭합니다.
+            </li>
+            <br />
+            <li>추가 정보를 입력하고 등록을 완료합니다.</li>
+          </ol>
+        </span>
+      </div>
+      <!--등록 방법 안내 끝-->
+      <!--제출 폼 시작 폼 안에 액션 채워야함!-->
+      <form
+        action="{%url 'PlacePost' %}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        {%csrf_token%}
+        <ul>
+          <li>
+            <label for="address">주소</label
+            ><!--이부분 주소 채워야합니다-->
+          </li>
+          <li>
+            <label for="PlaceName">장소 이름</label>
+            <input type="text" name="PlaceName" id="PlaceName" value=" " />
+          </li>
+          <li>
+            장소 설명 <br />
+            <textarea
+              name="PlaceExplain"
+              id="PlaceExplain"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </li>
+          <li>
+            <label for="PlacePhoto">장소 사진</label>
+            <input type="file" name="PlacePhoto" />
+          </li>
+        </ul>
+        <input type="submit" value="제출하기" />
+      </form>
+    </div>
+  </body>
+</html>

@@ -32,6 +32,12 @@ class Migration(migrations.Migration):
                 ('subject', models.CharField(max_length=100, null=True)),
                 ('management_status', models.CharField(max_length=100, null=True)),
                 ('management', models.CharField(max_length=100, null=True)),
+            name='PlacePost',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('PlaceName', models.CharField(max_length=50)),
+                ('PlaceExplain', models.TextField()),
+                ('PlacePhoto', models.ImageField(upload_to='request/')),
             ],
         ),
     ]
