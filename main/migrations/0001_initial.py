@@ -20,6 +20,18 @@ class Migration(migrations.Migration):
                 ('type', models.CharField(max_length=10)),
                 ('location', models.CharField(max_length=200)),
                 ('manage', models.CharField(max_length=200)),
+            name='smoking_area',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('region', models.CharField(max_length=100, null=True)),
+                ('facility_name', models.CharField(max_length=100, null=True)),
+                ('facility_type', models.CharField(max_length=100, null=True)),
+                ('location', models.CharField(max_length=100, null=True)),
+                ('size', models.CharField(max_length=100, null=True)),
+                ('date', models.CharField(max_length=100, null=True)),
+                ('subject', models.CharField(max_length=100, null=True)),
+                ('management_status', models.CharField(max_length=100, null=True)),
+                ('management', models.CharField(max_length=100, null=True)),
             ],
         ),
     ]
