@@ -1,6 +1,5 @@
 @import "reset.css";
-@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Noto+Sans+KR:wght@300&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Noto+Sans+KR:wght@400;700;900&display=swap");
 html,
 body {
 	font-family: "Bagel Fat One", cursive;
@@ -28,19 +27,18 @@ body {
 	transition: height 0.3s ease-in-out;
 }
 
-.currentbtn {
+.roadviewbtn {
 	position: absolute;
-	top: 10%;
+	top: 50px;
 	right: 5%;
 	margin: 0;
 	padding: 0;
 	z-index: 2;
 	font-size: 12px;
 }
-
-.roadviewbtn {
+.currentbtn {
 	position: absolute;
-	top: 5%;
+	top: 100px;
 	right: 5%;
 	margin: 0;
 	padding: 0;
@@ -63,6 +61,8 @@ body {
 	width: fit-content;
 	height: fit-content;
 	padding: 5px;
+	border: 2px solid black;
+	background-color: #fff;
 }
 
 .info-window p {
@@ -81,9 +81,10 @@ body {
 	text-align: center;
 	transition: height 0.3s ease-in-out;
 	border: 1px solid black;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
-.bottons {
+.buttons {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
@@ -94,6 +95,18 @@ body {
 	grid-column-end: 3;
 	grid-row-start: 1;
 	grid-row-end: 2;
+	font-size: 100%;
+	text-align: left;
+	margin-left: 10%;
+}
+
+#address-1 {
+	font-weight: 900;
+	font-size: large;
+}
+
+#address-2 {
+	font-weight: normal;
 }
 
 .findRoute {
@@ -118,4 +131,14 @@ body {
 	grid-row-start: 2;
 	grid-row-end: 3;
 	margin-top: 25px;
+}
+
+#roadview {
+	position: relative;
+	top: 16%;
+	left: 25%;
+	width: 50%;
+	height: 50%;
+	z-index: 100;
+	visibility: hidden;
 }
