@@ -35,8 +35,10 @@
 							<img id="logo" src="/static/main/image/logo.png" alt="logo" />
 						</a>
 					</div>
-					<h3 class="navbar-text position-absolute top-50 start-50 translate-middle fs-6">흡연구역 지도</h3>
-					<a class="navbar-brand" href="#" style="right: 10px">
+					<h3 class="navbar-text position-absolute top-50 start-50 translate-middle" style="font-size: 36px">
+						흡연구역 지도
+					</h3>
+					<a class="navbar-brand" href="#" style="right: 5%">
 						<img src="/static/main/image/info.png" alt="info_icon" width="32" />
 					</a>
 				</div>
@@ -47,22 +49,55 @@
 				<div id="map">
 					<!-- 지도타입 컨트롤 div 입니다 -->
 					<div class="custom_typecontrol">
+						<span class="roadviewbtn" onclick="getLoadView()">
+							<img src="/static/main/image/road_view.svg" width="36" />
+						</span>
 						<span class="currentbtn" onclick="setCenter()">
 							<img src="/static/main/image/setCurrent.png" width="36" />
 						</span>
-						<span class="roadviewbtn" onclick="getLoadView()">
-							<img src="/static/main/image/load_view.svg" width="36" />
+						<span id="enroll" class="enroll">
+							<img src="/static/main/image/enroll.png" width="100" />
 						</span>
+						<script>
+							function closeOverlay() {
+								infowindow.close();
+							}
+						</script>
+						<script>
+							var arr = [];
+							{% for item in zone %}
+							var gu = '{{ item.gu }}';
+							var manage = '{{ item.manage }}';
+
+							var loc = gu + " " + manage;
+							var desc = '{{ item.location }}';
+
+							arr.push({'location' : loc, 'desc' : desc})
+							{% endfor %}
+							findGeo(arr);
+						</script>
 					</div>
 				</div>
 			</div>
-
 			<!-- 지도 그리기 끝 -->
-		</div>
-		<div class="sticky-bottom d-flex justify-content-around" style="background-color: #e3f2fd">
-			<button type="button" class="btn btn-danger">담배판매점</button>
-			<button type="button" onclick="makeMarker('국민대학교')" class="btn btn-warning">흡연구역 지도</button>
-			<button type="button" class="btn btn-success">이용 안내</button>
+			<div id="bottomBar" class="bottom_bar">
+				<div class="bottons">
+					<div class="address_box">국민대학교 어쩌고 저쩌고</div>
+					<div class="findRoute">
+						<a id="link_route" href="#">
+							<img src="/static/main/image/findRoute.png" width="60" />
+						</a>
+					</div>
+					<div class="bottom_roadview">
+						<a id="link_roadView" href="#">
+							<img src="/static/main/image/roadView.png" width="120" />
+						</a>
+					</div>
+					<div class="report">
+						<img src="/static/main/image/report.png" width="120" />
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
