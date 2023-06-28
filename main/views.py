@@ -22,3 +22,11 @@ def main(request):
         redirect('/')
     context = {'zone' : zone}
     return render(request, 'main/main.html', context)
+
+def placepost(request):
+    Place = PlacePost()
+    Place.PlaceName = request.POST.get('PlaceName')
+    Place.PlaceExplain = request.POST.get('PlaceExpain')
+    Place.PlacePhoto = request.POST.get('PlacePhoto')
+    
+    return render(request, 'request/request.html')
