@@ -35,7 +35,7 @@
 							<img id="logo" src="/static/main/image/logo.png" alt="logo" />
 						</a>
 					</div>
-					<h3 class="navbar-text position-absolute top-50 start-50 translate-middle" style="font-size: 36px">
+					<h3 class="navbar-text position-absolute top-50 start-50 translate-middle" style="font-size: 150%">
 						흡연구역 지도
 					</h3>
 					<a class="navbar-brand" href="#" style="right: 5%">
@@ -77,12 +77,17 @@
 							findGeo(arr);
 						</script>
 					</div>
+					<div id="roadview"></div>
 				</div>
 			</div>
 			<!-- 지도 그리기 끝 -->
 			<div id="bottomBar" class="bottom_bar">
-				<div class="bottons">
-					<div class="address_box">국민대학교 어쩌고 저쩌고</div>
+				<div class="buttons">
+					<div class="address_box">
+						<h1 id="address-1">#</h1>
+						<br />
+						<p id="address-2">#</p>
+					</div>
 					<div class="findRoute">
 						<a id="link_route" href="#">
 							<img src="/static/main/image/findRoute.png" width="60" />

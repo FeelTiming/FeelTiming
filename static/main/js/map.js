@@ -83,6 +83,7 @@ function getLoadView() {
 
 // 인포윈도우
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+var overlay = new kakao.maps.CustomOverlay({ zIndex: 1, clickable: true, yAnchor: 2.0 });
 var coords = [];
 var description = [];
 async function findGeo(place) {
@@ -108,7 +109,11 @@ async function findGeo(place) {
 				if (data.documents.length !== 0) {
 					var coord = new kakao.maps.LatLng(data.documents[0].y, data.documents[0].x);
 					coords.push(coord);
-					description.push({ desc: place[i].desc, id: data.documents[0].id });
+					description.push({
+						desc: place[i].desc,
+						id: data.documents[0].id,
+						road_address_name: data.documents[0].road_address_name,
+					});
 				}
 			})
 			.catch((error) => {
@@ -131,14 +136,18 @@ async function displayMarker(coords, description) {
 					var linkRoadView = document.getElementById("link_roadView");
 					linkRoute.href = "https://map.kakao.com/link/to/" + title.id;
 					linkRoadView.href = "https://map.kakao.com/link/roadview/" + title.id;
-					displayInfowindow(marker, title.desc);
+					map.panTo(marker.getPosition());
+					roadView(marker, title);
 				});
 				kakao.maps.event.addListener(map, "click", function () {
 					var map_container = document.getElementById("map");
 					var bar = document.getElementById("bottomBar");
+					var roadviewContainer = document.getElementById("roadview");
+
 					map_container.style.height = "100%";
 					bar.style.height = "0%";
-					infowindow.close();
+					roadviewContainer.style.visibility = "hidden";
+					overlay.setMap(null);
 				});
 			}
 		)(marker, description[i]);
@@ -160,14 +169,26 @@ function addMarker(position) {
 	return marker;
 }
 
-function displayInfowindow(marker, title) {
-	var content = '<div class="info-window">' + "<p>" + title + "</p>" + "</div>";
-	infowindow.setContent(content);
+function roadView(marker, description) {
+	var roadviewContainer = document.getElementById("roadview");
+	var roadview = new kakao.maps.Roadview(roadviewContainer);
+	var roadviewClient = new kakao.maps.RoadviewClient();
+
+	var position = marker.getPosition();
+
+	var address_1 = document.getElementById("address-1");
+	var address_2 = document.getElementById("address-2");
+	address_1.textContent = description.desc;
+	address_2.textContent = description.road_address_name;
+
 	var map_container = document.getElementById("map");
 	var bar = document.getElementById("bottomBar");
 	map_container.style.height = "70%";
 	bar.style.height = "30%";
-	infowindow.open(map, marker);
-}
+	roadviewContainer.style.visibility = "visible";
 
+	roadviewClient.getNearestPanoId(position, 50, function (panoId) {
+		roadview.setPanoId(panoId, position);
+	});
+}
 geoFindMe();
