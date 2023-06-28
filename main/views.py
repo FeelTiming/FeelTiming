@@ -9,5 +9,5 @@ def placepost(request):
     Place.PlaceName = request.POST.get('PlaceName')
     Place.PlaceExplain = request.POST.get('PlaceExpain')
     Place.PlacePhoto = request.POST.get('PlacePhoto')
-    
-    return render(request, 'request/request.html')
+    Place.save()
+    return render(request, "request/request.html",{"Place":Place})
