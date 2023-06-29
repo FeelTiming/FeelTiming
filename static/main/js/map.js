@@ -82,8 +82,6 @@ function getLoadView() {
 }
 
 // 인포윈도우
-var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-var overlay = new kakao.maps.CustomOverlay({ zIndex: 1, clickable: true, yAnchor: 2.0 });
 var coords = [];
 var description = [];
 async function findGeo(place) {
@@ -143,11 +141,17 @@ async function displayMarker(coords, description) {
 					var map_container = document.getElementById("map");
 					var bar = document.getElementById("bottomBar");
 					var roadviewContainer = document.getElementById("roadview");
+					var roadviewbtn = document.getElementById("roadviewbtn");
+					var currentbtn = document.getElementById("currentbtn");
+					var enrollbtn = document.getElementById("enrollbtn");
+
+					roadviewbtn.style.visibility = "visible";
+					currentbtn.style.visibility = "visible";
+					enrollbtn.style.visibility = "visible";
 
 					map_container.style.height = "100%";
 					bar.style.height = "0%";
 					roadviewContainer.style.visibility = "hidden";
-					overlay.setMap(null);
 				});
 			}
 		)(marker, description[i]);
@@ -185,10 +189,29 @@ function roadView(marker, description) {
 	var bar = document.getElementById("bottomBar");
 	map_container.style.height = "70%";
 	bar.style.height = "30%";
+	bar.style.visibility = "visible";
 	roadviewContainer.style.visibility = "visible";
 
 	roadviewClient.getNearestPanoId(position, 50, function (panoId) {
 		roadview.setPanoId(panoId, position);
 	});
 }
+
+function enroll() {
+	var map_container = document.getElementById("map");
+	var html = document.getElementById("enroll_page");
+	var bar = document.getElementById("bottomBar");
+	var roadviewbtn = document.getElementById("roadviewbtn");
+	var currentbtn = document.getElementById("currentbtn");
+	var enrollbtn = document.getElementById("enrollbtn");
+
+	roadviewbtn.style.visibility = "hidden";
+	currentbtn.style.visibility = "hidden";
+	enrollbtn.style.visibility = "hidden";
+	map_container.style.height = "10%";
+	bar.style.height = "0%";
+	bar.style.visibility = "hidden";
+	html.style.height = "90%";
+}
+
 geoFindMe();
