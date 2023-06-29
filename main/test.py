@@ -10,7 +10,7 @@ django.setup()
 
 from main.models import smoking_area
 
-CSV_PATH = 'C:/Users/User/Desktop/FeelTiming/smoking_area.csv'
+CSV_PATH = 'C:/Users/User/Desktop/FeelTiming/static/main/data/data_1/total_data.csv'
 
 with open(CSV_PATH, newline='') as csvfile:
 	data_reader = csv.DictReader(csvfile)
@@ -18,13 +18,9 @@ with open(CSV_PATH, newline='') as csvfile:
 		print(row)
 		smoking_area.objects.create(
                         region            = row['자치구'],
-                        facility_name     = row['시설 구분'],
-                        facility_type     = row['시설형태'],
-                        location          = row['설치 위치'],
-                        size              = row['규모'],
-                        date              = row['설치일'],
-                        subject           = row['설치 주체'],
-                        management_status = row['관리여부'],
-                        management        = row['관리'],
+
+                        location          = row['설치위치'],
+
+                        management        = row['운영관리'],
 
                   )
