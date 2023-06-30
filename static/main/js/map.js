@@ -1,6 +1,7 @@
 var map;
 var latitude;
 var longitude;
+var clicked_marker;
 
 function kakao_map(latitude, longitude) {
 	if (latitude === null && longitude === null) {
@@ -18,9 +19,22 @@ function kakao_map(latitude, longitude) {
 	};
 	map = new kakao.maps.Map(container, options_kakao);
 
-	var imageSrc = "static/main/image/current.png", // 마커이미지의 주소입니다
-		imageSize = new kakao.maps.Size(20, 20); // 마커이미지의 크기입니다
+	var clickedimageSrc = "static/main/image/place.svg",
+		imageSize = new kakao.maps.Size(30, 30);
+	var clickedmarkerImage = new kakao.maps.MarkerImage(clickedimageSrc, imageSize);
 
+	clicked_marker = new kakao.maps.Marker({ image: clickedmarkerImage, zIndex: 2 });
+	clicked_marker.setMap(map);
+
+	kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+		var latlng = mouseEvent.latLng;
+		clicked_marker.setPosition(latlng);
+		var enrollbtn = document.getElementById("enrollbtn");
+		enrollbtn.style.visibility = "visible";
+	});
+
+	var imageSrc = "static/main/image/current.png"; // 마커이미지의 주소입니다
+	imageSize = new kakao.maps.Size(20, 20);
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
 	var markerPosition = new kakao.maps.LatLng(latitude, longitude);
@@ -28,6 +42,7 @@ function kakao_map(latitude, longitude) {
 		position: markerPosition,
 		image: markerImage,
 	});
+
 	marker.setMap(map);
 }
 
@@ -197,6 +212,7 @@ function roadView(marker, description) {
 	});
 }
 
+var geocoder = new kakao.maps.services.Geocoder();
 function enroll() {
 	var map_container = document.getElementById("map");
 	var html = document.getElementById("enroll_page");
@@ -204,6 +220,7 @@ function enroll() {
 	var roadviewbtn = document.getElementById("roadviewbtn");
 	var currentbtn = document.getElementById("currentbtn");
 	var enrollbtn = document.getElementById("enrollbtn");
+	var enrollAddress = document.getElementById("enroll-address");
 
 	roadviewbtn.style.visibility = "hidden";
 	currentbtn.style.visibility = "hidden";
@@ -212,6 +229,14 @@ function enroll() {
 	bar.style.height = "0%";
 	bar.style.visibility = "hidden";
 	html.style.height = "90%";
+	var coord = clicked_marker.getPosition();
+
+	var callback = function (result, status) {
+		if (status === kakao.maps.services.Status.OK) {
+			enrollAddress.textContent = result[0].address.address_name;
+		}
+	};
+	geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
 }
 
 geoFindMe();
