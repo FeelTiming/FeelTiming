@@ -176,6 +176,11 @@ body {
 	font-size: 80%;
 }
 
+#enroll_page #enroll-address {
+	margin-top: 5px;
+	width: 100%;
+}
+
 #enroll_page #PlaceName {
 	margin-top: 5px;
 	width: 100%;

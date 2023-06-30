@@ -29,8 +29,6 @@ function kakao_map(latitude, longitude) {
 	kakao.maps.event.addListener(map, "click", function (mouseEvent) {
 		var latlng = mouseEvent.latLng;
 		clicked_marker.setPosition(latlng);
-		var enrollbtn = document.getElementById("enrollbtn");
-		enrollbtn.style.visibility = "visible";
 	});
 
 	var imageSrc = "static/main/image/current.png"; // 마커이미지의 주소입니다
@@ -233,7 +231,7 @@ function enroll() {
 
 	var callback = function (result, status) {
 		if (status === kakao.maps.services.Status.OK) {
-			enrollAddress.textContent = result[0].address.address_name;
+			enrollAddress.value = result[0].address.address_name;
 		}
 	};
 	geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);

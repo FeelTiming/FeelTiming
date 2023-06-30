@@ -28,6 +28,7 @@ class smoking_area(models.Model):
     
 class PlacePost(models.Model) : 
     # address = ?
+    PlaceAddress = models.CharField(max_length=100)
     PlaceName = models.CharField(max_length=50)
     PlaceExplain = models.TextField()
     PlacePhoto = models.ImageField(upload_to='request/')
