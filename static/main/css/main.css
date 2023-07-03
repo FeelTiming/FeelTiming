@@ -25,7 +25,7 @@ body {
 #map {
 	position: relative;
 	width: 100%;
-	height: 100%;
+	height: 90%;
 	transition: height 0.3s ease-in-out;
 }
 
@@ -209,4 +209,23 @@ body {
 	width: 136px;
 	height: 34px;
 	background-image: url("/static/main/image/enrollbtn.png");
+}
+
+#bottom_menu {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 9%;
+	z-index: 100;
+	border-top: 1px solid black;
+	background-color: white;
+}
+
+#bottom_menu div {
+	float: left;
+	width: 33.3%;
+	height: 100%;
+	text-align: center;
+	padding-top: 13px;
 }

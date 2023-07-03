@@ -27,10 +27,18 @@ function kakao_map(latitude, longitude) {
 	clicked_marker.setMap(map);
 
 	kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+		var enrollbtn = document.getElementById("enrollbtn");
+		enrollbtn.style.visibility = "visible";
+		clicked_marker.setVisible(true);
 		var latlng = mouseEvent.latLng;
 		clicked_marker.setPosition(latlng);
 	});
 
+	kakao.maps.event.addListener(map, "rightclick", function (mouseEvent) {
+		var enrollbtn = document.getElementById("enrollbtn");
+		enrollbtn.style.visibility = "hidden";
+		clicked_marker.setVisible(false);
+	});
 	var imageSrc = "static/main/image/current.png"; // 마커이미지의 주소입니다
 	imageSize = new kakao.maps.Size(20, 20);
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
@@ -145,6 +153,8 @@ async function displayMarker(coords, description) {
 				kakao.maps.event.addListener(marker, "click", function () {
 					var linkRoute = document.getElementById("link_route");
 					var linkRoadView = document.getElementById("link_roadView");
+					var bottom_menu = document.getElementById("bottom_menu");
+					bottom_menu.style.visibility = "hidden";
 					linkRoute.href = "https://map.kakao.com/link/to/" + title.id;
 					linkRoadView.href = "https://map.kakao.com/link/roadview/" + title.id;
 					map.panTo(marker.getPosition());
@@ -157,7 +167,9 @@ async function displayMarker(coords, description) {
 					var roadviewbtn = document.getElementById("roadviewbtn");
 					var currentbtn = document.getElementById("currentbtn");
 					var enrollbtn = document.getElementById("enrollbtn");
+					var bottom_menu = document.getElementById("bottom_menu");
 
+					bottom_menu.style.visibility = "visible";
 					roadviewbtn.style.visibility = "visible";
 					currentbtn.style.visibility = "visible";
 					enrollbtn.style.visibility = "visible";
@@ -219,7 +231,9 @@ function enroll() {
 	var currentbtn = document.getElementById("currentbtn");
 	var enrollbtn = document.getElementById("enrollbtn");
 	var enrollAddress = document.getElementById("enroll-address");
+	var bottom_menu = document.getElementById("bottom_menu");
 
+	bottom_menu.style.visibility = "hidden";
 	roadviewbtn.style.visibility = "hidden";
 	currentbtn.style.visibility = "hidden";
 	enrollbtn.style.visibility = "hidden";

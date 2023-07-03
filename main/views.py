@@ -25,8 +25,9 @@ def main(request):
 
 def placepost(request):
     Place = PlacePost()
-    Place.PlaceName = request.POST.get('PlaceName')
-    Place.PlaceExplain = request.POST.get('PlaceExpain')
-    Place.PlacePhoto = request.POST.get('PlacePhoto')
-    
-    return render(request, 'request/request.html')
+    Place.PlaceAddress = request.POST['PlaceAddress']
+    Place.PlaceName = request.POST['PlaceName']
+    Place.PlaceExplain = request.POST['PlaceExplain']
+    Place.PlacePhoto = request.POST['PlacePhoto']
+    Place.save()
+    return redirect('/')
