@@ -28,10 +28,7 @@
 				<script>
 					var arr = [];
 					{% for item in zone %}
-					var gu = '{{ item.gu }}';
-					var manage = '{{ item.manage }}';
-
-					var loc = gu + " " + manage;
+					var loc = '{{ item.address }}'
 					var desc = '{{ item.location }}';
 
 					arr.push({'location' : loc, 'desc' : desc})
@@ -149,7 +146,4 @@
 	</div>
 	<!-- 흡연 구역 끝 -->
 	{% endblock %}
-	<!-- navbar 끝 -->
-
-	<!-- 바텀 바 -->
 </div>
