@@ -36,7 +36,10 @@
 					흡연구역 지도
 				</h3>
 				{% if user.is_active %}
-				<a class="navbar-brand" href="/user/logout" style="right: 5%"> 로그아웃 </a>
+				<a class="navbar-brand" href="{% url 'user:mypage' user.id %}" style="position: absolute; right: 10%">
+					마이페이지</a
+				>
+				<a class="navbar-brand" href="/user/logout" style="right: 5%"> 로그아웃</a>
 				{% else %}
 				<a class="navbar-brand" href="/user/login" style="right: 5%">
 					<img src="/static/main/image/Group.png" alt="info_icon" width="32" />

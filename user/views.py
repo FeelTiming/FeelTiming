@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import User
 from .forms import UserForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 # Create your views here.
 
 # 회원 가입
@@ -21,3 +21,9 @@ def signup(request):
         form = UserForm()
     # signup으로 GET 요청이 왔을 때, 회원가입 화면을 띄워준다.
     return render(request, 'user/signup.html', {'form': form})
+
+def mypage(request, pk):
+    User = get_user_model()
+    user = get_object_or_404(User, pk=pk)
+    context = {'user': user}
+    return render(request, 'user/mypage.html', context)
