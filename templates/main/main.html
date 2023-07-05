@@ -21,11 +21,6 @@
 					<img src="/static/main/image/enroll.png" width="100" />
 				</span>
 				<script>
-					function closeOverlay() {
-						infowindow.close();
-					}
-				</script>
-				<script>
 					var arr = [];
 					{% for item in zone %}
 					var loc = '{{ item.address }}'
@@ -42,13 +37,18 @@
 	<!-- 지도 그리기 끝 -->
 	<div id="bottom_menu">
 		<div>
-			<a href="#"><img src="/static/main/image/community.png" /></a>
+			<a onclick="developed()"><img src="/static/main/image/community.png" /></a>
 		</div>
 		<div>
-			<a href="#"><img src="/static/main/image/map.png" /></a>
+			<a href="/"><img src="/static/main/image/map.png" /></a>
 		</div>
 		<div>
-			<a href="#"><img src="/static/main/image/mypage.png" /></a>
+			<a onclick="developed()"><img src="/static/main/image/mypage.png" /></a>
+			<script>
+				function developed() {
+					alert("개발중");
+				}
+			</script>
 		</div>
 	</div>
 	<!-- 끝 -->

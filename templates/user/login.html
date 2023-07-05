@@ -1,11 +1,52 @@
 {% extends 'base.html' %} {% block content%}
-<form method="POST" action="{% url 'login' %}">
-	{% csrf_token %}
-	<input type="text" name="username" placeholder="이메일을 입력하세요" />
-	<br />
-	<input type="text" name="password" placeholder="비밀번호를 입력하세요" />
-	<br />
-	<input type="submit" value="로그인" />
-</form>
-<button onclick="location.href='/user/signup/' ">회원가입</button>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-5">
+			<h2>로그인</h2>
+			<br />
+			<form class="row g-3" method="post" action="{% url 'user:login' %}">
+				{% csrf_token %}
+				<div class="col-md-7">
+					<label for="username">사용자ID</label>
+					<input
+						type="text"
+						class="form-control"
+						name="username"
+						id="username"
+						value="{{ form.username.value|default_if_none:'' }}"
+					/>
+				</div>
+				<div class="col-md-7">
+					<label for="password">비밀번호</label>
+					<input
+						type="password"
+						class="form-control"
+						name="password"
+						id="password"
+						value="{{ form.password.value|default_if_none:'' }}"
+					/>
+				</div>
+				<div class="col-12">
+					<button type="submit" class="btn btn-primary">로그인</button>
+				</div>
+			</form>
+			<br />
+			<div class="mb-3">
+				<a href="#" onclick="developed()" style="text-decoration: none">아이디 찾기</a>
+			</div>
+			<div class="mb-3">
+				<a href="#" onclick="developed()" style="text-decoration: none">비밀번호 재설정</a>
+			</div>
+			<div class="mb-3">
+				<a href="/user/signup" style="text-decoration: none">회원가입</a>
+			</div>
+			<script>
+				function developed() {
+					alert("개발중");
+				}
+			</script>
+		</div>
+	</div>
+</div>
+
 {% endblock %}
