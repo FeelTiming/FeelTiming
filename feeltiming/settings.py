@@ -7,11 +7,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^#tu6&an#-7x(nheo*a1gbknvpu6*!h-7zwnpgo+7qimkaf-19'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = ['*']
 
-
+DEBUG = False # 배포 세팅1. 디버그모드를 꺼야 배포 가능!
+ALLOWED_HOSTS = [
+    'likelion11.pythonanywhere.com'
+] # 이 주소가 아니라 다른 주소로 접근하면 막을 수 있도록
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
