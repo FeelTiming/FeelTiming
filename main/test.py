@@ -3,14 +3,15 @@ import os
 import django
 import sys
 
-sys.path.append("C:/Users/wsx21/OneDrive/LikeLion/feeltiming/")
+sys.path.append("C:/Users/User/Desktop/FeelTiming/feeltiming")
+
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "feeltiming.settings")
 django.setup()
 
 from main.models import smoking_area
 
-CSV_PATH = 'C:/Users/wsx21/OneDrive/LikeLion/feeltiming/static/main/data/total_data.csv'
+CSV_PATH = 'C:/Users/User/Desktop/FeelTiming/static/main/data/total_data.csv'
 
 with open(CSV_PATH, newline='') as csvfile:
 	data_reader = csv.DictReader(csvfile)

@@ -219,7 +219,7 @@ body {
 	height: 9%;
 	z-index: 100;
 	border-top: 1px solid black;
-	background-color: white;
+	background-color: #d9efff;
 }
 
 #bottom_menu div {
@@ -228,4 +228,5 @@ body {
 	height: 100%;
 	text-align: center;
 	padding-top: 13px;
+	background-color: #d9efff;
 }

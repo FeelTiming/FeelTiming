@@ -19,4 +19,5 @@ from . import views
 urlpatterns = [
     path('', views.main, name='main'),
     path('post', views.placepost, name='PlacePost'),
+    path('data', views.create_data, name='CreateData'), 
 ]
