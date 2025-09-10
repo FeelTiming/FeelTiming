@@ -1,0 +1,27 @@
+# Example Terraform variables file
+# Copy this file to terraform.tfvars and fill in your actual values
+
+# General Configuration
+project_name = "feeltiming"
+environment  = "prod"
+owner        = "Your Name"
+
+# AWS Configuration
+aws_region = "ap-northeast-2" # Seoul region
+
+# Network Configuration
+vpc_cidr = "10.0.0.0/16"
+
+# Compute Configuration
+instance_type = "t3.micro"
+key_name      = "your-ec2-key-pair-name" # REQUIRED: Create this in AWS Console first
+
+# Django Application Configuration (REQUIRED)
+django_secret_key     = "your-django-secret-key-here-must-be-at-least-50-characters-long"
+django_debug         = false
+django_allowed_hosts = "*"  # For production, use specific domain
+kakao_map_api_key    = "your-kakao-map-api-key-here"
+
+# Optional Configuration
+enable_monitoring      = true
+backup_retention_days = 7
